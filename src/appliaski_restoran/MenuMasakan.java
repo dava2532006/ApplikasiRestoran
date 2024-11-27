@@ -162,7 +162,11 @@ public class MenuMasakan extends javax.swing.JFrame {
 
         btn_logout.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         btn_logout.setText("LOGOUT");
-        btn_logout.setEnabled(false);
+        btn_logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_logoutActionPerformed(evt);
+            }
+        });
 
         btn_menu_transaksi.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         btn_menu_transaksi.setText("MENU TRANSAKSI");
@@ -267,6 +271,13 @@ public class MenuMasakan extends javax.swing.JFrame {
     private void btn_menu_transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_menu_transaksiActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_menu_transaksiActionPerformed
+
+    private void btn_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logoutActionPerformed
+        // TODO add your handling code here:
+        Login l = new Login();
+        l.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btn_logoutActionPerformed
 
     /**
      * @param args the command line arguments

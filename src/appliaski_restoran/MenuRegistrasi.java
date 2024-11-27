@@ -153,6 +153,11 @@ public class MenuRegistrasi extends javax.swing.JFrame {
         btn_logout.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         btn_logout.setText("LOGOUT");
         btn_logout.setEnabled(false);
+        btn_logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_logoutActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -259,6 +264,13 @@ public class MenuRegistrasi extends javax.swing.JFrame {
     private void btn_menu_registrasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_menu_registrasiActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_menu_registrasiActionPerformed
+
+    private void btn_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logoutActionPerformed
+        // TODO add your handling code here:
+        Login l = new Login();
+        l.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btn_logoutActionPerformed
 
     /**
      * @param args the command line arguments

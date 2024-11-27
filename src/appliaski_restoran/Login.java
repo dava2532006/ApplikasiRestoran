@@ -4,19 +4,38 @@
  */
 package appliaski_restoran;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 /**
  *
  * @author User
  */
 public class Login extends javax.swing.JFrame {
-
+    private PreparedStatement stat;
+    private ResultSet rs;
+    koneksi k = new koneksi();
+    
     /**
      * Creates new form login
      */
     public Login() {
         initComponents();
+        k.connect ();
     }
-
+    class user {
+        int id_user, id_level;
+        String username, pssword, nama_user;
+        private final String password;
+        
+        public user() {
+            this.id_user = 0;
+            this.username = text_username.getText();
+            this.password = text_password.getText();
+            this.nama_user = "";
+            this.id_level = 0;
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -55,6 +74,11 @@ public class Login extends javax.swing.JFrame {
 
         btn_login.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         btn_login.setText("Login");
+        btn_login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_loginActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -102,6 +126,49 @@ public class Login extends javax.swing.JFrame {
     private void text_usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_text_usernameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_text_usernameActionPerformed
+
+    private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
+        // TODO add your handling code here:
+        user u = new user();
+        try {
+            this.stat = k.getCon().prepareStatement("select * From user where " 
+                    + "username='"+u.username+"' and password='"+u.password+"'");
+            this.rs = this.stat.executeQuery();
+            while (rs.next()){
+              u.id_level = rs.getInt("id_level");
+            }
+            if (u.id_level==0){
+                JOptionPane.showMessageDialog(null, "AKUN TIDAK DITEMUKAN");
+            }else{
+                switch(u.id_level){
+                    case 1:
+                        MenuRegistrasi reg = new MenuRegistrasi();
+                        reg.setVisible(true);
+                        this.setVisible(false);
+                        break;
+                    case 2:
+                        MenuTransaksi tran = new MenuTransaksi();
+                        tran.setVisible(true);
+                        this.setVisible(false);
+                        break;
+                    case 3:
+                        MenuTransaksi tran2 = new MenuTransaksi();
+                        tran2.setVisible(true);
+                        this.setVisible(false);
+                        tran2.btn_cetak_laporan.setEnabled(true);
+                        break;
+                    case 4:
+                        MenuMasakan masak = new MenuMasakan();
+                        masak.setVisible(true);
+                        this.setVisible(false);
+                        masak.btn_logout.setEnabled(true);
+                        break;
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }//GEN-LAST:event_btn_loginActionPerformed
 
     /**
      * @param args the command line arguments

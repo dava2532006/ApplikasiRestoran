@@ -14,8 +14,9 @@ public class Appliaski_Restoran {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       koneksi k = new koneksi();
-       k.connect();
+     Login l = new Login();
+     l.setVisible(true);
+         
       
     }
     
