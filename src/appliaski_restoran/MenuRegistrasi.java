@@ -4,17 +4,69 @@
  */
 package appliaski_restoran;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author User
  */
 public class MenuRegistrasi extends javax.swing.JFrame {
-
+    private DefaultTableModel model = null;
+    private PreparedStatement stat;
+    private ResultSet rs;
+    koneksi k = new koneksi();
     /**
      * Creates new form NewJFrame
      */
     public MenuRegistrasi() {
         initComponents();
+        k.connect();
+        refreshTable();
+    }
+    class user extends MenuRegistrasi{
+        int id_user, id_level;
+        String username, password, nama_user;
+        
+        public user (){
+            username = text_username.getText();
+            password = text_password.getText();
+            nama_user = text_nama_user.getText();
+            id_level = Integer.parseInt(combo_id_level.getSelectedItem().toString());
+            
+        }   
+    }
+    
+    public void refreshTable(){
+        model = new DefaultTableModel();
+        model.addColumn("ID User");
+        model.addColumn("Username");
+        model.addColumn("Password");
+        model.addColumn("Nama User");
+        model.addColumn("ID Level");
+        table_registrasi.setModel(model);
+        try {
+           this.stat = k.getCon().prepareStatement("select * from user");
+           this.rs = this.stat.executeQuery();
+           while (rs.next()){
+               Object[] data ={
+                   rs.getString("id_user"),
+                   rs.getString("username"),
+                   rs.getString("password"),
+                   rs.getString("nama_user"),
+                   rs.getString("id_level"),
+               };
+               model.addRow(data);
+           }
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        text_ID_user.setText("");
+        text_username.setText("");
+        text_password.setText("");
+        text_nama_user.setText("");
+   
     }
 
     /**
@@ -79,6 +131,11 @@ public class MenuRegistrasi extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        table_registrasi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                table_registrasiMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(table_registrasi);
 
         text_username.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
@@ -116,7 +173,7 @@ public class MenuRegistrasi extends javax.swing.JFrame {
         });
 
         btn_menu_registrasi.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        btn_menu_registrasi.setText("Menu Registrasi");
+        btn_menu_registrasi.setText("MENU MASAKAN");
         btn_menu_registrasi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_menu_registrasiActionPerformed(evt);
@@ -136,7 +193,7 @@ public class MenuRegistrasi extends javax.swing.JFrame {
                 .addComponent(btn_delete, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_menu_registrasi, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,7 +209,6 @@ public class MenuRegistrasi extends javax.swing.JFrame {
 
         btn_logout.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         btn_logout.setText("LOGOUT");
-        btn_logout.setEnabled(false);
         btn_logout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_logoutActionPerformed(evt);
@@ -251,18 +307,61 @@ public class MenuRegistrasi extends javax.swing.JFrame {
 
     private void btn_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_updateActionPerformed
         // TODO add your handling code here:
+        try {
+            user u = new user();
+            this.stat = k.getCon().prepareStatement("update user set username=?,"
+                    + "password=?,nama_user=?,id_level=? where id_user=?");
+            stat.setString(2, u.username);
+            stat.setString(3, u.password);
+            stat.setString(4, u.nama_user);
+            stat.setInt(5, u.id_level);
+            stat.executeUpdate();
+            refreshTable();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
     }//GEN-LAST:event_btn_updateActionPerformed
 
     private void btn_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteActionPerformed
         // TODO add your handling code here:
+        try {
+            user u = new user();
+            this.stat = k.getCon().prepareStatement("delete from user where id_user=?");
+            stat.setInt(1, u.id_user);
+            stat.executeUpdate();
+            refreshTable();
+        }catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
     }//GEN-LAST:event_btn_deleteActionPerformed
 
     private void btn_inputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_inputActionPerformed
         // TODO add your handling code here:
+        try {
+           user u = new user(); 
+           this.stat = k.getCon().prepareStatement("insert into user values(?,?,?,?,?)");
+           stat.setInt(1, 0);
+           stat.setString(2, u.username);
+           stat.setString(3, u.password);
+           stat.setString(4, u.nama_user);
+           stat.setInt(5, u.id_level);
+           stat.executeUpdate();
+           refreshTable();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
     }//GEN-LAST:event_btn_inputActionPerformed
 
     private void btn_menu_registrasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_menu_registrasiActionPerformed
         // TODO add your handling code here:
+        MenuMasakan masak = new MenuMasakan();
+        masak.setVisible(true);
+        this.setVisible(false);
+        masak.btn_input.setEnabled(true);
+        masak.btn_delete.setEnabled(true);
+        masak.btn_update.setEnabled(true);
+        masak.btn_menu_transaksi.setEnabled(true);
+        masak.btn_menu_registrasi.setEnabled(true);
     }//GEN-LAST:event_btn_menu_registrasiActionPerformed
 
     private void btn_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logoutActionPerformed
@@ -271,6 +370,14 @@ public class MenuRegistrasi extends javax.swing.JFrame {
         l.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btn_logoutActionPerformed
+
+    private void table_registrasiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_registrasiMouseClicked
+        // TODO add your handling code here:
+        text_ID_user.setText(model.getValueAt(table_registrasi.getSelectedRow(),0).toString());
+        text_username.setText(model.getValueAt(table_registrasi.getSelectedRow(),1).toString());
+        text_password.setText(model.getValueAt(table_registrasi.getSelectedRow(),2).toString());
+        text_nama_user.setText(model.getValueAt(table_registrasi.getSelectedRow(),3).toString());
+    }//GEN-LAST:event_table_registrasiMouseClicked
 
     /**
      * @param args the command line arguments

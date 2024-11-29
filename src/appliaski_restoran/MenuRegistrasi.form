@@ -168,6 +168,9 @@
               </Table>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="table_registrasiMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -215,7 +218,7 @@
                   <Component id="btn_delete" min="-2" pref="150" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btn_menu_registrasi" min="-2" pref="150" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="16" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -282,7 +285,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="SansSerif" size="14" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Menu Registrasi"/>
+            <Property name="text" type="java.lang.String" value="MENU MASAKAN"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_menu_registrasiActionPerformed"/>
@@ -299,7 +302,6 @@
           <Font name="SansSerif" size="14" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="LOGOUT"/>
-        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_logoutActionPerformed"/>
