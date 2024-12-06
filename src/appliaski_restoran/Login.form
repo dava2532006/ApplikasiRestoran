@@ -35,7 +35,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="text_username" max="32767" attributes="0"/>
-                          <Component id="text_password" max="32767" attributes="0"/>
+                          <Component id="password_field" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -59,9 +59,9 @@
                   <Component id="text_username" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jLabel3" pref="63" max="32767" attributes="0"/>
-                  <Component id="text_password" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel3" alignment="3" min="-2" pref="63" max="-2" attributes="0"/>
+                  <Component id="password_field" alignment="3" min="-2" pref="57" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="btn_login" min="-2" pref="56" max="-2" attributes="0"/>
@@ -103,8 +103,6 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="text_usernameActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="text_password">
-    </Component>
     <Component class="javax.swing.JButton" name="btn_login">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -115,6 +113,8 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_loginActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JPasswordField" name="password_field">
     </Component>
   </SubComponents>
 </Form>
