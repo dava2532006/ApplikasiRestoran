@@ -4,17 +4,67 @@
  */
 package appliaski_restoran;
 
+import com.mysql.cj.jdbc.PreparedStatementWrapper;
+import javax.swing.table.DefaultTableModel;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author User
  */
 public class MenuMasakan extends javax.swing.JFrame {
-
+    private DefaultTableModel model = null;
+    private PreparedStatement stat;
+    private ResultSet rs;
+    koneksi k = new koneksi();
+    
     /**
      * Creates new form NewJFrame
      */
     public MenuMasakan() {
         initComponents();
+        k.connect();
+        refreshTable();
+    }
+    class masakan extends MenuMasakan{
+        int id_masakan, harga;
+        String nama_masakan,status;
+        
+        public masakan (){
+        this.nama_masakan = text_nama_masakan.getText();
+        this.harga = Integer.parseInt(text_harga.getText());
+        this.status= combo_status.getSelectedItem().toString();
+        
+        }
+    
+    }
+    public void refreshTable(){
+        model = new DefaultTableModel();
+        model.addColumn("ID Masakan");
+        model.addColumn("Nama Masakan");
+        model.addColumn("Harga");
+        model.addColumn("Status Masakan");
+        table_masakan.setModel(model);
+        try {
+            this.stat = k.getCon().prepareStatement("select * from masakan");
+            this.rs = this.stat.executeQuery();
+            while (rs.next()){ 
+            Object[] data= {
+                rs.getInt("id_masakan"),
+                rs.getString("nama_masakan"),
+                rs.getInt("harga"),
+                rs.getString("status"),
+            };
+            model.addRow(data);
+            }
+            
+        } catch (Exception e) {JOptionPane.showMessageDialog(null,e.getMessage());
+        }
+        text_ID_masakan.setText("");
+        text_nama_masakan.setText("");
+        text_harga.setText("");
     }
 
     /**
@@ -78,6 +128,11 @@ public class MenuMasakan extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        table_masakan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                table_masakanMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(table_masakan);
 
         text_nama_masakan.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
@@ -94,6 +149,11 @@ public class MenuMasakan extends javax.swing.JFrame {
 
         combo_status.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         combo_status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tersedia", "Habis" }));
+        combo_status.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combo_statusActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -205,12 +265,12 @@ public class MenuMasakan extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
                             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(btn_menu_transaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btn_logout, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(btn_logout, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -249,27 +309,82 @@ public class MenuMasakan extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void text_ID_masakanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_text_ID_masakanActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_text_ID_masakanActionPerformed
 
     private void btn_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_updateActionPerformed
+        try {
+            masakan m= new masakan();
+            this.stat = k.getCon().prepareStatement("update masakan set nama_masakan=?,"
+                    + "harga=?,status=? where id_masakan=?");
+                    stat.setString(1,m.nama_masakan);
+                    stat.setInt(2,m.harga);
+                    stat.setString(3,m.status);
+                    stat.setInt(4,Integer.parseInt(text_ID_masakan.getText()));
+                    stat.executeUpdate();
+                    refreshTable();
+        } catch (Exception e) {JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+
+
+
+
+
+
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_updateActionPerformed
 
     private void btn_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteActionPerformed
+           try {
+               this.stat=k.getCon().prepareStatement("delete from masakan where id_masakan=?");
+                    stat.setInt(1,Integer.parseInt(text_ID_masakan.getText()));
+                    stat.executeUpdate();
+                    refreshTable();
+        } catch (Exception e) {JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+
+
+
+
+
+
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_deleteActionPerformed
 
     private void btn_inputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_inputActionPerformed
-        // TODO add your handling code here:
+        try {
+            masakan m =new masakan();
+            this.stat = k.getCon().prepareStatement("insert into masakan values(?,?,?,?)");
+            stat.setInt(1,0);
+            stat.setString(2,m.nama_masakan);
+            stat.setInt(3,m.harga);
+            stat.setString(4,m.status);
+            stat.executeUpdate();
+            refreshTable();
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
     }//GEN-LAST:event_btn_inputActionPerformed
 
     private void btn_menu_registrasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_menu_registrasiActionPerformed
-        // TODO add your handling code here:
+       MenuRegistrasi reg = new MenuRegistrasi();
+       reg.setVisible(true);
+       this.setVisible(false);
+        
+
+
+
+// TODO add your handling code here:sd
     }//GEN-LAST:event_btn_menu_registrasiActionPerformed
 
     private void btn_menu_transaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_menu_transaksiActionPerformed
-        // TODO add your handling code here:
+      MenuTransaksi tran = new MenuTransaksi();
+      tran.setVisible(true);
+      this.setVisible(false);
+        
+
+// TODO add your handling code here:
     }//GEN-LAST:event_btn_menu_transaksiActionPerformed
 
     private void btn_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logoutActionPerformed
@@ -278,6 +393,19 @@ public class MenuMasakan extends javax.swing.JFrame {
         l.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btn_logoutActionPerformed
+
+    private void combo_statusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_statusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_combo_statusActionPerformed
+
+    private void table_masakanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_masakanMouseClicked
+        text_ID_masakan.setText(model.getValueAt(table_masakan.getSelectedRow(),0).toString());
+        text_nama_masakan.setText(model.getValueAt(table_masakan.getSelectedRow(),1).toString());
+        text_harga.setText(model.getValueAt(table_masakan.getSelectedRow(),2).toString());
+      
+
+
+    }//GEN-LAST:event_table_masakanMouseClicked
 
     /**
      * @param args the command line arguments

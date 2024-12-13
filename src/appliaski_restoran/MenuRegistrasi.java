@@ -91,7 +91,7 @@ public class MenuRegistrasi extends javax.swing.JFrame {
         btn_update = new javax.swing.JButton();
         btn_delete = new javax.swing.JButton();
         btn_input = new javax.swing.JButton();
-        btn_menu_registrasi = new javax.swing.JButton();
+        btn_menu_masakan = new javax.swing.JButton();
         btn_logout = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         combo_id_level = new javax.swing.JComboBox<>();
@@ -172,11 +172,11 @@ public class MenuRegistrasi extends javax.swing.JFrame {
             }
         });
 
-        btn_menu_registrasi.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        btn_menu_registrasi.setText("MENU MASAKAN");
-        btn_menu_registrasi.addActionListener(new java.awt.event.ActionListener() {
+        btn_menu_masakan.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        btn_menu_masakan.setText("MENU MASAKAN");
+        btn_menu_masakan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_menu_registrasiActionPerformed(evt);
+                btn_menu_masakanActionPerformed(evt);
             }
         });
 
@@ -192,7 +192,7 @@ public class MenuRegistrasi extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_delete, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_menu_registrasi, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_menu_masakan, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -203,7 +203,7 @@ public class MenuRegistrasi extends javax.swing.JFrame {
                     .addComponent(btn_update, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_input, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_delete, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_menu_registrasi, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_menu_masakan, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(10, Short.MAX_VALUE))
         );
 
@@ -352,7 +352,7 @@ public class MenuRegistrasi extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_inputActionPerformed
 
-    private void btn_menu_registrasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_menu_registrasiActionPerformed
+    private void btn_menu_masakanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_menu_masakanActionPerformed
         // TODO add your handling code here:
         MenuMasakan masak = new MenuMasakan();
         masak.setVisible(true);
@@ -362,7 +362,7 @@ public class MenuRegistrasi extends javax.swing.JFrame {
         masak.btn_update.setEnabled(true);
         masak.btn_menu_transaksi.setEnabled(true);
         masak.btn_menu_registrasi.setEnabled(true);
-    }//GEN-LAST:event_btn_menu_registrasiActionPerformed
+    }//GEN-LAST:event_btn_menu_masakanActionPerformed
 
     private void btn_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logoutActionPerformed
         // TODO add your handling code here:
@@ -433,7 +433,7 @@ public class MenuRegistrasi extends javax.swing.JFrame {
     public javax.swing.JButton btn_delete;
     public javax.swing.JButton btn_input;
     public javax.swing.JButton btn_logout;
-    public javax.swing.JButton btn_menu_registrasi;
+    public javax.swing.JButton btn_menu_masakan;
     public javax.swing.JButton btn_update;
     private javax.swing.JComboBox<String> combo_id_level;
     private javax.swing.JLabel jLabel1;
