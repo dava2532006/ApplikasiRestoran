@@ -42,7 +42,7 @@ public class MenuTransaksi extends javax.swing.JFrame {
             this.id_masakan = Integer.parseInt(arr[0]);
             try{
               Date date = text_tanggal.getDate();
-              DateFormat dateformat = new SimpleDateFormat("yyyy-dd-mm");
+              DateFormat dateformat = new SimpleDateFormat("YYYY-MM-dd");
               this.tanggal = dateformat.format(date);
             } catch (Exception e){
                 JOptionPane.showMessageDialog(null, e.getMessage());
@@ -294,8 +294,6 @@ public class MenuTransaksi extends javax.swing.JFrame {
         text_total_bayar.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         text_total_bayar.setEnabled(false);
 
-        text_tanggal.setFont(new java.awt.Font("Consolas", 1, 14)); // NOI18N
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -325,24 +323,19 @@ public class MenuTransaksi extends javax.swing.JFrame {
                                     .addComponent(text_id_transaksi)
                                     .addComponent(text_nama_pelanggan)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(combo_id_masakan, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(combo_id_masakan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE))
+                                .addGap(19, 19, 19)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(text_tanggal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(19, 19, 19)
-                                        .addComponent(text_jml_beli))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(19, 19, 19)
-                                        .addComponent(text_total_bayar)))))))
+                                    .addComponent(text_jml_beli)
+                                    .addComponent(text_total_bayar)
+                                    .addComponent(text_tanggal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -364,12 +357,12 @@ public class MenuTransaksi extends javax.swing.JFrame {
                             .addComponent(text_nama_pelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 34, Short.MAX_VALUE)
-                            .addComponent(combo_id_masakan)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(combo_id_masakan))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
                             .addComponent(text_tanggal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(text_jml_beli, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -447,11 +440,11 @@ public class MenuTransaksi extends javax.swing.JFrame {
             this.stat.setInt(7, tran.jumlah_beli);
             this.stat.setInt(8, tran.total_bayar);
             int pilihan = JOptionPane.showConfirmDialog(null,
-                    "Tanggal: "+tran.tanggal+
-                    "/nNama pelanggan: "+tran.nama_pelanggan+
-                    "/nPembelian: "+tran.jumlah_beli+
-                    "/nTotal Bayar: "+tran.total_bayar+"/n",
-                    "Tambahkan Transaksi?",
+                    "\n Tanggal: "+tran.tanggal+
+                    "\n Nama pelanggan: "+tran.nama_pelanggan+
+                    "\n Pembelian: "+tran.jumlah_beli+
+                    "\nTotal Bayar: "+tran.total_bayar+"",
+                    "\n Tambahkan Transaksi?",
                     JOptionPane.YES_NO_OPTION);
             if (pilihan == JOptionPane.YES_OPTION) {
                 this.stat.executeUpdate();
