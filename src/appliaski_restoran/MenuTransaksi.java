@@ -48,7 +48,7 @@ public class MenuTransaksi extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
             this.nama_masakan = arr[1];
-            this.harga = Integer.parseInt(arr [1]);
+            this.harga = Integer.parseInt(arr [2]);
             this.jumlah_beli = Integer.parseInt(text_jml_beli.getText());
             this.total_bayar = this.harga * this.jumlah_beli;
         }
@@ -356,10 +356,11 @@ public class MenuTransaksi extends javax.swing.JFrame {
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(text_nama_pelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(combo_id_masakan))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(combo_id_masakan, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
@@ -392,9 +393,9 @@ public class MenuTransaksi extends javax.swing.JFrame {
         try {
             transaksi tran= new transaksi();
             tran.id_transaksi = Integer.parseInt(text_id_transaksi.getText());
-            this.stat = k.getCon().prepareStatement("update transaaksi set nama_pelanggan=?,"
+            this.stat = k.getCon().prepareStatement("update transaksi set nama_pelanggan=?,"
                     + "id_masakan=?,tanggal=?,nama_masakan=?,harga=?,jumlah_beli=?,total_bayar=? "
-                    + "where id_transaksi=?,");
+                    + "where id_transaksi=?");
             this.stat.setString(1, tran.nama_pelanggan);
             this.stat.setInt(2, tran.id_masakan);
             this.stat.setString(3, tran.tanggal);
@@ -429,7 +430,7 @@ public class MenuTransaksi extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             transaksi tran = new transaksi();
-            text_total_bayar.setText(""+tran.total_bayar);
+            text_total_bayar.setText(" "+tran.total_bayar);
             this.stat = k.getCon().prepareStatement("insert into transaksi values (?,?,?,?,?,?,?,?)");
             this.stat.setInt(1, 0);
             this.stat.setString(2, tran.nama_pelanggan);
@@ -440,11 +441,11 @@ public class MenuTransaksi extends javax.swing.JFrame {
             this.stat.setInt(7, tran.jumlah_beli);
             this.stat.setInt(8, tran.total_bayar);
             int pilihan = JOptionPane.showConfirmDialog(null,
-                    "\n Tanggal: "+tran.tanggal+
-                    "\n Nama pelanggan: "+tran.nama_pelanggan+
-                    "\n Pembelian: "+tran.jumlah_beli+
-                    "\nTotal Bayar: "+tran.total_bayar+"",
-                    "\n Tambahkan Transaksi?",
+                    "Tanggal: "+tran.tanggal+
+                    "\nNama pelanggan: "+tran.nama_pelanggan+
+                    "\nPembelian: "+tran.jumlah_beli+" "+tran.nama_masakan+
+                    "\nTotal Bayar: "+tran.total_bayar+"\n",
+                    "Tambahkan Transaksi?",
                     JOptionPane.YES_NO_OPTION);
             if (pilihan == JOptionPane.YES_OPTION) {
                 this.stat.executeUpdate();
