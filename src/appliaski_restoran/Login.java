@@ -66,6 +66,7 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("PASSWORD");
 
+        text_username.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         text_username.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 text_usernameActionPerformed(evt);
@@ -77,6 +78,13 @@ public class Login extends javax.swing.JFrame {
         btn_login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_loginActionPerformed(evt);
+            }
+        });
+
+        password_field.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        password_field.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                password_fieldActionPerformed(evt);
             }
         });
 
@@ -170,6 +178,10 @@ public class Login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }//GEN-LAST:event_btn_loginActionPerformed
+
+    private void password_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_password_fieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_password_fieldActionPerformed
 
     /**
      * @param args the command line arguments
